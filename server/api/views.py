@@ -12,7 +12,3 @@ def db_connect():
         cursor.execute('SELECT * FROM main_employees')
         row = cursor
         print(result)
-
-def connector(list_of_):
-    with connection.cursor() as cursor:
-
