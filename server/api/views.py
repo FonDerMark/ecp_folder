@@ -3,12 +3,11 @@ from django.db import connection
 
 
 def api_index(request):
-    db_connect()
-    return HttpResponse('Hello')
+    return JsonResponse(full_list(), safe=False)
 
 
-def db_connect():
+def full_list(db_name='main_employees'):
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM main_employees')
-        row = cursor
-        print(result)
+        cursor.execute(f'SELECT * FROM {db_name}')
+        columns = [col[0] for col in cursor.description]
+        return [dict(zip(columns, row)) for row in cursor.fetchall()]
