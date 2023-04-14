@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base-page.html' %}
+{% block main %}
+    <div>
+        <aside>
+        <div>
+            <a href="{% url 'employeers_list' %}">
+                <button type="button" class="btn btn-primary">Персонал</button>
+            </a>
+            <a href="{% url 'posts_list' %}">
+                <button type="button" class="btn btn-primary">Должности</button>
+            </a>
+        </div>
+        </aside>
+        <main>
+            <table id='posts-table' class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Должность</th>
+                  <th scope="col">Категория</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </main>
+    </div>
+    <script>
+        getPosts()
+    </script>
+{% endblock %}
