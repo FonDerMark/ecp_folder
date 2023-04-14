@@ -2,9 +2,9 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'list_employeers.html')
 
 
 # TODO Delete whis
 def card_edit(request):
-    return render(request, 'personal-card.html')
+    return render(request, 'edit_employeer.html')

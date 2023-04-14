@@ -19,7 +19,6 @@ async function getData() {
             ageCell.innerHTML = item.age;
             catCell.innerHTML = item.category;
             postCell.innerHTML = item.post;
-
         });
     }catch (error){
         console.log(error)
