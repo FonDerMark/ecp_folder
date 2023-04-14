@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .models import Employees, Posts
 
 
 def index(request):
@@ -7,5 +6,5 @@ def index(request):
 
 
 # TODO Delete whis
-def test(request):
-    return render(request, 'base-page.html')
+def card_edit(request):
+    return render(request, 'personal-card.html')
