@@ -2,10 +2,6 @@
 
 
 {% block main %}
-    {{ posts }}
-    {% for i in employees %}
-        {{ i }}
-    {% endfor %}
     <main>
         <table class="table">
           <thead>
@@ -37,4 +33,26 @@
           </tbody>
         </table>
     </main>
+    <script>
+        let table = document.querySelector('#table')
+        let url = 'http://127.0.0.1:8000/api/'
+        async function getData() {
+            try{
+                let response = await fetch(url);
+                let data = await response.json()
+                data.forEach(item => {
+                    let newRow = table.insertRow(-1);
+                    let nameCell = newRow.insertCell(0);
+                    let surnameCell = newRow.insertCell(1);
+                    let ageCell = newRow.insertCell(2);
+                    nameCell.innerHTML = item.name;
+                    surnameCell.innerHTML = item.surname;
+                    ageCell.innerHTML = item.age;
+                });
+            }catch (error){
+                console.log(error)
+            }
+        }
+        getData();
+    </script>
 {% endblock %}
