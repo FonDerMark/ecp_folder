@@ -8,4 +8,4 @@ def index(request):
 
 # TODO Delete whis
 def test(request):
-    return render(request, 'base_page.html')
+    return render(request, 'base-page.html')

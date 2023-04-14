@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from .views import staff_list
+from .views import get_staff_list
 
 urlpatterns = [
-    url(r'^$', staff_list)
+    url(r'^$', get_staff_list)
 ]

@@ -4,7 +4,6 @@ async function getData() {
     try{
         let response = await fetch(url);
         let data = await response.json();
-        console.log(data)
         data.forEach(item => {
             let newRow = table.insertRow(-1);
             let nameCell = newRow.insertCell(0);
@@ -14,7 +13,8 @@ async function getData() {
             let catCell = newRow.insertCell(4);
             let postCell = newRow.insertCell(5);
             nameCell.innerHTML = item.id;
-            surnameCell.innerHTML = item.lastname + ' ' + item.firstname + ' ' + item.surname;
+            // surnameCell.innerHTML = item.lastname + ' ' + item.firstname + ' ' + item.surname;
+            surnameCell.innerHTML = `<a href='#'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
             genderCell.innerHTML = item.gender;
             ageCell.innerHTML = item.age;
             catCell.innerHTML = item.category;
