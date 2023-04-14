@@ -3,8 +3,9 @@ from .models import Employees, Posts
 
 
 def index(request):
-    context = {
-        'employees': Employees.objects.raw('SELECT * FROM main_employees'),
-        'posts': Posts.objects.raw('SELECT * FROM main_posts'),
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
+
+
+# TODO Delete whis
+def test(request):
+    return render(request, 'base_page.html')

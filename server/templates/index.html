@@ -2,57 +2,30 @@
 
 
 {% block main %}
-    <main>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
-    </main>
-    <script>
-        let table = document.querySelector('#table')
-        let url = 'http://127.0.0.1:8000/api/'
-        async function getData() {
-            try{
-                let response = await fetch(url);
-                let data = await response.json()
-                data.forEach(item => {
-                    let newRow = table.insertRow(-1);
-                    let nameCell = newRow.insertCell(0);
-                    let surnameCell = newRow.insertCell(1);
-                    let ageCell = newRow.insertCell(2);
-                    nameCell.innerHTML = item.name;
-                    surnameCell.innerHTML = item.surname;
-                    ageCell.innerHTML = item.age;
-                });
-            }catch (error){
-                console.log(error)
-            }
-        }
-        getData();
-    </script>
+    <div class="content">
+        <aside>
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-primary">Primary</button>
+            </div>
+        </aside>
+        <main>
+            <table id='main-table' class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">ФИО</th>
+                  <th scope="col">Пол</th>
+                  <th scope="col">Возраст</th>
+                  <th scope="col">Должность</th>
+                  <th scope="col">Категория</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+        </main>
+    </div>
+
 {% endblock %}
