@@ -14,7 +14,7 @@ async function getData() {
             let postCell = newRow.insertCell(5);
             nameCell.innerHTML = item.id;
             // surnameCell.innerHTML = item.lastname + ' ' + item.firstname + ' ' + item.surname;
-            surnameCell.innerHTML = `<a href='#'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
+            surnameCell.innerHTML = `<a href='card_edit/'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
             genderCell.innerHTML = item.gender;
             ageCell.innerHTML = item.age;
             catCell.innerHTML = item.category;
