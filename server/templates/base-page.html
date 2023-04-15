@@ -13,12 +13,27 @@
 
 {% block header %}
     <div class="header">
-        HEADER
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'employeers_list' %}">Персонал</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'posts_list' %}">Должности</a>
+            </li>
+        </ul>
     </div>
 {% endblock %}
-{% block main %}
+{% block content %}
+    <div class="all_page container">
+        <div class="row">
+            <div class="col">
+            {% block main %}{% endblock %}
+            </div>
+        </div>
 
+    </div>
 {% endblock %}
+
 {% block footer %}
     <div class="footer">
         FOOTER
