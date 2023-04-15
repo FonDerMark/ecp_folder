@@ -10,4 +10,5 @@ def list_posts(request):
 
 
 def card_edit(request):
+    edited_employer_id = request.GET.get('id')
     return render(request, 'edit_employeer.html')

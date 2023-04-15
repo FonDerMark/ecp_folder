@@ -12,15 +12,16 @@
 <body>
 
 {% block header %}
-    <div class="header">
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'employeers_list' %}">Персонал</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'posts_list' %}">Должности</a>
-            </li>
+<div class="header__container">
+        <img src="{% static 'img/Vector.svg' %}" alt="logo" class="header__logo">
+        <ul class="header__links">
+            <li class="header__link">Персонал</li>
+            <li class="header__link">Должности</li>
         </ul>
+    </div>
+    <div>
+{#        <button class="header__btn">Войти</button>#}
+{#        <button class="header__btn">Регистрация</button>#}
     </div>
 {% endblock %}
 {% block content %}
@@ -30,15 +31,22 @@
             {% block main %}{% endblock %}
             </div>
         </div>
-
     </div>
 {% endblock %}
 
 {% block footer %}
     <div class="footer">
-        FOOTER
+        <div class="footer__container">
+            <h3>Контакты</h3>
+            <p>Техподдержка: 9 54-33</p>
+            <p>Написать нам: test@gmail.com</p>
+        </div>
+        <ul class="footer__links">
+            <a class="footer__link" href="#">О сервисе</a>
+            <a class="footer__link" href="#">Копроротивный портал</a>
+            <!-- <a class="footer__link" href="#"></a> -->
+        </ul>
     </div>
 {% endblock %}
-<script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>

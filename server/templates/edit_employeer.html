@@ -1,12 +1,30 @@
 {% extends 'base-page.html' %}
+{% load static %}
 {% block main %}
-    <form>
-        <div class="col-md-4">
-            <label for="validationCustom01" class="form-label">First name</label>
-            <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-            <div class="valid-feedback">
-                Looks good!
+    <div>
+        <form>
+            <div class="col-md-4">
+                <label for="lastname" class="form-label">Фамилия</label>
+                <input type="text" class="form-control" id="lastname" value="Mark" required>
             </div>
-        </div>
-    </form>
+            <div class="col-md-4">
+                <label for="firstname" class="form-label">Имя</label>
+                <input type="text" class="form-control" id="firstname" required>
+            </div>
+            <div class="col-md-4">
+                <label for="surname" class="form-label">Отчество</label>
+                <input type="text" class="form-control" id="surname" required>
+            </div>
+            <div class="col-md-4">
+                <label for="post" class="form-label">Должность</label>
+                <input type="text" class="form-control" id="post" required>
+            </div>
+            <div class="col-md-4">
+                <label for="cat" class="form-label">Категория</label>
+                <input type="text" class="form-control" id="cat" required>
+            </div>
+
+        </form>
+    </div>
+    <script src="{% static 'js/emp-lk.js' %}"></script>
 {% endblock %}
