@@ -6,19 +6,18 @@ async function getData() {
         let data = await response.json();
         data.forEach(item => {
             let newRow = table.insertRow(-1);
-            let nameCell = newRow.insertCell(0);
-            let surnameCell = newRow.insertCell(1);
-            let genderCell = newRow.insertCell(2);
-            let ageCell = newRow.insertCell(3);
-            let catCell = newRow.insertCell(4);
-            let postCell = newRow.insertCell(5);
-            nameCell.innerHTML = item.id;
-            // surnameCell.innerHTML = item.lastname + ' ' + item.firstname + ' ' + item.surname;
-            surnameCell.innerHTML = `<a href='card_edit/'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
-            genderCell.innerHTML = item.gender;
-            ageCell.innerHTML = item.age;
-            catCell.innerHTML = item.category;
+            let idCell = newRow.insertCell(0)
+            let fullnameCell = newRow.insertCell(1);
+            let postCell = newRow.insertCell(2);
+            let catCell = newRow.insertCell(3);
+            let ageCell = newRow.insertCell(4);
+            let genderCell = newRow.insertCell(5);
+            idCell.innerHTML = item.id;
+            fullnameCell.innerHTML = `<a href='card_edit/'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
             postCell.innerHTML = item.post;
+            catCell.innerHTML = item.category;
+            ageCell.innerHTML = item.age;
+            genderCell.innerHTML = item.gender;
         });
     }catch (error){
         console.log(error)
