@@ -2,6 +2,10 @@ from django.shortcuts import render
 
 
 def index(request):
+    return render(request, 'index.html')
+
+
+def list_employeers(request):
     return render(request, 'list_employeers.html')
 
 
@@ -10,5 +14,4 @@ def list_posts(request):
 
 
 def card_edit(request):
-    edited_employer_id = request.GET.get('id')
     return render(request, 'edit_employeer.html')

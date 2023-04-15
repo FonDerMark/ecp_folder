@@ -13,7 +13,9 @@ async function getData() {
             let ageCell = newRow.insertCell(4);
             let genderCell = newRow.insertCell(5);
             idCell.innerHTML = item.id;
-            fullnameCell.innerHTML = `<a href='card_edit?id=${item.id}'>${item.lastname} ${item.firstname} ${item.surname}</a>`;
+            fullnameCell.innerHTML = `<a href='/card_edit?id=${item.id}'>
+                                            ${item.lastname} ${item.firstname} ${item.surname}
+                                      </a>`;
             postCell.innerHTML = item.post;
             catCell.innerHTML = item.category;
             ageCell.innerHTML = item.age;

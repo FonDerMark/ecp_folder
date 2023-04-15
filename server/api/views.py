@@ -1,12 +1,15 @@
 from django.http import JsonResponse, HttpResponse
 from django.db import connection
+from django.shortcuts import redirect
 
 
 def request_to_sql(sql_string) -> list:
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
-        columns = [col[0] for col in cursor.description]
-        return [dict(zip(columns, row)) for row in cursor.fetchall()]
+        try:
+            columns = [col[0] for col in cursor.description]
+        finally:
+            return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 
 def get_staff_list(request):
@@ -44,6 +47,19 @@ def add_new_employeer(request):
     sql_string = f'INSERT INTO main.main_employees (lastname, firstname, surname, post_id, age, gender)' \
                  f'VALUES ({lastname}, {firstname}, {surname}, {post_id}, {age}, {gender})'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+
+
+def edit_employeer(request):
+    qd = {k: v[0] for k, v in dict(request.POST).items()}
+    del qd['csrfmiddlewaretoken']
+    #TODO post
+    del qd['post']
+    me_id = int(qd.pop('id'))
+    params = [k + '=' + '"' + v + '"' for k, v in qd.items()]
+    sql_string = f"UPDATE main_employees SET {', '.join(params)} WHERE id={me_id}"
+    print(sql_string)
+    request_to_sql(sql_string)
+    return redirect('employeers_list')
 
 
 def add_new_post(request):

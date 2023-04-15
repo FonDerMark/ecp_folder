@@ -13,10 +13,15 @@
 
 {% block header %}
 <div class="header__container">
-        <img src="{% static 'img/Vector.svg' %}" alt="logo" class="header__logo">
+        <a href="{% url 'index' %}"><img src="{% static 'img/logo.svg' %}" alt="logo" class="header__logo"></a>
+
         <ul class="header__links">
-            <li class="header__link">Персонал</li>
-            <li class="header__link">Должности</li>
+            <a style="text-decoration: none" href="{% url 'employeers_list' %}">
+                <li class="header__link">Персонал</li>
+            </a>
+            <a style="text-decoration: none" href="{% url 'posts_list' %}">
+                <li class="header__link">Должности</li>
+            </a>
         </ul>
     </div>
     <div>
@@ -38,12 +43,12 @@
     <div class="footer">
         <div class="footer__container">
             <h3>Контакты</h3>
-            <p>Техподдержка: 9 54-33</p>
-            <p>Написать нам: test@gmail.com</p>
+            <p>Техподдержка: X-XX-XX</p>
+            <p>Написать нам: test@mail.com</p>
         </div>
         <ul class="footer__links">
             <a class="footer__link" href="#">О сервисе</a>
-            <a class="footer__link" href="#">Копроротивный портал</a>
+            <a class="footer__link" href="#">Корпоративный портал</a>
             <!-- <a class="footer__link" href="#"></a> -->
         </ul>
     </div>
