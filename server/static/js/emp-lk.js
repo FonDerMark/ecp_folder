@@ -8,7 +8,6 @@ let id = document.getElementById('id')
 let lastname = document.getElementById('lastname');
 let firstname = document.getElementById('firstname');
 let surname = document.getElementById('surname');
-let post_id = document.getElementById('post_id');
 let post_selector = document.getElementById('inputGroupSelect')
 let cat = document.getElementById('cat');
 let age = document.getElementById('age');
@@ -32,7 +31,6 @@ async function getEmployeer() {
         lastname.setAttribute('value', data['lastname'])
         firstname.setAttribute('value', data['firstname'])
         surname.setAttribute('value', data['surname'])
-        post_id.setAttribute('value', data['post_id'])
         cat.setAttribute('value', data['category'])
         age.setAttribute('value', data['age'])
         gender.setAttribute('value', data['gender'])
