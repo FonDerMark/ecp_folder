@@ -4,6 +4,7 @@ async function getData() {
     try{
         let response = await fetch(url);
         let data = await response.json();
+        console.log(data)
         data.forEach(item => {
             let newRow = table.insertRow(-1);
             let idCell = newRow.insertCell(0)
@@ -13,7 +14,7 @@ async function getData() {
             let ageCell = newRow.insertCell(4);
             let genderCell = newRow.insertCell(5);
             idCell.innerHTML = item.id;
-            fullnameCell.innerHTML = `<a href='/card_edit?id=${item.id}'>
+            fullnameCell.innerHTML = `<a href='/employeer_edit?id=${item.id}'>
                                             ${item.lastname} ${item.firstname} ${item.surname}
                                       </a>`;
             postCell.innerHTML = item.post;

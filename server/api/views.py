@@ -13,7 +13,20 @@ def request_to_sql(sql_string) -> list:
 
 
 def get_staff_list(request):
-    sql_string = 'SELECT * FROM main_employees me LEFT JOIN main_posts mp on mp.id = me.id'
+    # sql_string = 'SELECT * FROM main_employees me INNER JOIN main_posts mp on me.post_id = mp.id'
+    sql_string = 'SELECT ' \
+                 'me.id, ' \
+                 'me.lastname, ' \
+                 'me.firstname, ' \
+                 'me.surname, ' \
+                 'me.post_id, ' \
+                 'me.gender, ' \
+                 'me.age, ' \
+                 'mp.id as post_id, ' \
+                 'mp.post, ' \
+                 'mp.category ' \
+                 'FROM main_employees me INNER JOIN main_posts mp on me.post_id = mp.id'
+    print(request_to_sql(sql_string))
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
