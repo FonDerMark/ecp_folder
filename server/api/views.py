@@ -26,7 +26,6 @@ def get_staff_list(request):
                  'mp.post, ' \
                  'mp.category ' \
                  'FROM main_employees me INNER JOIN main_posts mp on me.post_id = mp.id'
-    print(request_to_sql(sql_string))
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
@@ -41,12 +40,6 @@ def get_employee_info(request):
         sql_string = f'SELECT * FROM main_employees me ' \
                      f'LEFT JOIN main_posts mp on mp.id = me.post_id ' \
                      f'WHERE me.id={employee_id}'
-    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
-
-
-def get_post_info(request):
-    post_id = request.GET.get('id')
-    sql_string = f'SELECT * FROM main.main_posts WHERE id={post_id}'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
 
 
@@ -69,6 +62,7 @@ def edit_employeer(request):
     me_id = int(qd.pop('id'))
     params = [k + '=' + '"' + v + '"' for k, v in qd.items()]
     sql_string = f"UPDATE main_employees SET {', '.join(params)} WHERE id={me_id}"
+    print(sql_string)
     request_to_sql(sql_string)
     return redirect('employeers_list')
 
@@ -78,4 +72,10 @@ def add_new_post(request):
     cat_name = request.POST.get('cat_name')
     sql_string = f'INSERT INTO main.main_posts (post, category)' \
                  f'VALUES ({post_name}, {cat_name})'
+    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+
+
+def get_post_info(request):
+    post_id = request.GET.get('id')
+    sql_string = f'SELECT * FROM main.main_posts WHERE id={post_id}'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
