@@ -1,6 +1,6 @@
-{% extends 'base-page.html' %}
+{% extends 'old/base-page.html' %}
 {% load static %}
-{% block main %}
+{% block content %}
     <div>
         <form class="border m-1 p-2 rounded" method="post" action="/api/employeer_edit/">
             {% csrf_token %}

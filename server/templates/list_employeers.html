@@ -1,10 +1,12 @@
 {% extends 'base-page.html' %}
 
 
-{% block main %}
+{% block content %}
     <div class="content">
         <main>
-            <a href="{% url 'employeer_add' %}"><button type="button" class="btn btn-light">Добавить сотрудника</button></a>
+            <a href="{% url 'employeer_add' %}">
+                <button type="button" class="btn btn-outline-dark mt-3 mb-3">Добавить сотрудника</button>
+            </a>
             <table id='main-table' class="table">
               <thead>
                 <tr>

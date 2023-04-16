@@ -29,11 +29,6 @@ def get_staff_list(request):
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
-def get_posts_list(request):
-    sql_string = 'SELECT * FROM main_posts'
-    return JsonResponse(request_to_sql(sql_string), safe=False)
-
-
 def get_employee_info(request):
     if request.method == 'GET':
         employee_id = request.GET.get('id')
@@ -50,9 +45,10 @@ def add_new_employeer(request):
     post_id = request.POST.get('post_id')
     age = request.POST.get('age')
     gender = request.POST.get('gender')
-    sql_string = f'INSERT INTO main.main_employees (lastname, firstname, surname, post_id, age, gender)' \
-                 f'VALUES ({lastname}, {firstname}, {surname}, {post_id}, {age}, {gender})'
-    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+    sql_string = f"INSERT INTO main_employees (lastname, firstname, surname, post_id, age, gender) " \
+                 f"VALUES ('{lastname}', '{firstname}', '{surname}', '{post_id}', '{age}', '{gender}')"
+    request_to_sql(sql_string)
+    return redirect('employeers_list')
 
 
 def edit_employeer(request):
@@ -65,6 +61,11 @@ def edit_employeer(request):
     print(sql_string)
     request_to_sql(sql_string)
     return redirect('employeers_list')
+
+
+def get_posts_list(request):
+    sql_string = 'SELECT * FROM main_posts'
+    return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
 def add_new_post(request):

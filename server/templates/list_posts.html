@@ -1,8 +1,10 @@
 {% extends 'base-page.html' %}
-{% block main %}
+{% block content %}
     <div>
         <main>
-            <a href="#"><button type="button" class="btn btn-light">Добавить должность</button></a>
+            <a href="{% url 'posts_add' %}">
+                <button type="button" class="btn btn-outline-dark mt-3 mb-3">Добавить должность</button>
+            </a>
             <table id='posts-table' class="table">
               <thead>
                 <tr>
