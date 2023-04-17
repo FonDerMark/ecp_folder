@@ -1,8 +1,7 @@
 let table = document.getElementById('posts-table');
 let params = (new URL(document.location)).searchParams;
 let employeer_id = params.get("id");
-console.log(employeer_id)
-let url = `http://127.0.0.1:8000/api/lcard?id=${employeer_id}`;
+let url = `http://127.0.0.1:8000/api/employeer_get/?id=${employeer_id}`;
 let url_posts = `http://127.0.0.1:8000/api/posts/`;
 
 let id = document.getElementById('id')

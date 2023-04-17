@@ -10,7 +10,6 @@ def employeers_list(request):
 
 
 def employeer_edit(request):
-    #TODO fix gender
     return render(request, 'edit_employeer.html')
 
 
@@ -22,9 +21,9 @@ def posts_list(request):
     return render(request, 'list_posts.html')
 
 
-# def post_edit(request):
-#     return render(request, 'list_posts.html')
-#
-#
-# def post_add(request):
-#     return render(request, 'list_posts.html')
+def post_edit(request):
+    return render(request, 'edit_post.html')
+
+
+def post_add(request):
+    return render(request, 'add_new_post.html')

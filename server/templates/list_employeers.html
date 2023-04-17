@@ -1,5 +1,5 @@
 {% extends 'base-page.html' %}
-
+{% load static %}
 
 {% block content %}
     <div class="content">
@@ -23,7 +23,5 @@
             </table>
         </main>
     </div>
-    <script>
-        getData()
-    </script>
+    <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

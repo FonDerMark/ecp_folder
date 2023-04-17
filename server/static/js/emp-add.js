@@ -8,7 +8,6 @@ async function getPosts() {
         data.forEach(item => {
                 post_selector.innerHTML += `<option value="${item.id}">${item.post}</option>`
         });
-        // id.setAttribute('value', data['id'])
     } catch (error){
         console.log(error)
     }

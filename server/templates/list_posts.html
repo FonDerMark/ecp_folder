@@ -1,8 +1,9 @@
 {% extends 'base-page.html' %}
+{% load static %}
 {% block content %}
     <div>
         <main>
-            <a href="{% url 'posts_add' %}">
+            <a href="{% url 'post_add' %}">
                 <button type="button" class="btn btn-outline-dark mt-3 mb-3">Добавить должность</button>
             </a>
             <table id='posts-table' class="table">
@@ -17,7 +18,5 @@
             </table>
         </main>
     </div>
-    <script>
-        getPosts()
-    </script>
+    <script src="{% static 'js/posts-list.js' %}"></script>
 {% endblock %}

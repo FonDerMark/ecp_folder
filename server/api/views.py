@@ -13,7 +13,6 @@ def request_to_sql(sql_string) -> list:
 
 
 def get_staff_list(request):
-    # sql_string = 'SELECT * FROM main_employees me INNER JOIN main_posts mp on me.post_id = mp.id'
     sql_string = 'SELECT ' \
                  'me.id, ' \
                  'me.lastname, ' \
@@ -25,7 +24,9 @@ def get_staff_list(request):
                  'mp.id as post_id, ' \
                  'mp.post, ' \
                  'mp.category ' \
-                 'FROM main_employees me INNER JOIN main_posts mp on me.post_id = mp.id'
+                 'FROM main_employees me ' \
+                 'INNER JOIN main_posts mp on me.post_id = mp.id ' \
+                 'ORDER BY me.lastname, me.firstname'
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
@@ -77,6 +78,15 @@ def add_new_post(request):
 
 
 def get_post_info(request):
-    post_id = request.GET.get('id')
+    post_id = request.GET.get('post_id')
     sql_string = f'SELECT * FROM main.main_posts WHERE id={post_id}'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+
+
+def post_edit(request):
+    post_id = request.POST.get('post_id')
+    post = request.POST.get('post')
+    category = request.POST.get('category')
+    sql_string = f"UPDATE main_employees SET {post}, {category} WHERE id={post_id}"
+    request_to_sql(sql_string)
+    return redirect('posts_list')
