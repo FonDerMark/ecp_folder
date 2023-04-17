@@ -62,6 +62,14 @@ def edit_employeer(request):
     return redirect('employeers_list')
 
 
+def employeer_delete(request):
+    deleted_id = request.GET['id']
+    sql_string = f"DELETE FROM main_employees WHERE id={deleted_id}"
+    print(sql_string)
+    request_to_sql(sql_string)
+    return redirect('employeers_list')
+
+
 def get_posts_list(request):
     sql_string = 'SELECT * FROM main_posts'
     return JsonResponse(request_to_sql(sql_string), safe=False)
@@ -82,9 +90,18 @@ def get_post_info(request):
 
 
 def post_edit(request):
+    print(request.POST)
     post_id = request.POST.get('post_id')
     post = request.POST.get('post')
     category = request.POST.get('category')
     sql_string = f"UPDATE main_posts SET post='{post}', category='{category}' WHERE id={post_id}"
+    request_to_sql(sql_string)
+    return redirect('posts_list')
+
+
+def post_delete(request):
+    deleted_id = request.GET['id']
+    sql_string = f"DELETE FROM main_posts WHERE id={deleted_id}"
+    print(sql_string)
     request_to_sql(sql_string)
     return redirect('posts_list')

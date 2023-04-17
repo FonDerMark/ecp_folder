@@ -14,6 +14,8 @@ let age = document.getElementById('age');
 let gender = document.getElementById('gender');
 let genders = document.querySelectorAll('.gender__opt')
 
+let delete_employeer = document.getElementById('delete_employeer')
+
 
 async function getEmployeer() {
     try{
@@ -40,6 +42,8 @@ async function getEmployeer() {
         cat.setAttribute('value', data['category'])
         age.setAttribute('value', data['age'])
         gender.setAttribute('value', data['gender'])
+
+        delete_employeer.setAttribute(`href`, `/api/employeer_delete/?id=${employeer_id}`)
 
     } catch (error){
         console.log(error)
