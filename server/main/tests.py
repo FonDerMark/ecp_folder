@@ -1,3 +1,4 @@
 from django.test import TestCase
+from .models import Employees, Posts
 
-# Create your tests here.
+emps = Employees.objects.raw('SELECT * FROM main_employees')

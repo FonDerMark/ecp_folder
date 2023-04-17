@@ -4,12 +4,22 @@ from django.shortcuts import redirect
 
 
 def request_to_sql(sql_string) -> list:
+    '''
+    Коннектор для передачи строки с запросом напрямую в БД, и
+    получения ответа, с последующим оформлением результата двумя генераторами.
+    Все последующие функции благодаря такому подходу, фактически
+    являются простыми конструкторами строки запроса.
+    :param sql_string:
+    :return:
+    '''
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
         try:
             columns = [col[0] for col in cursor.description]
-        finally:
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
+        finally:
+            return []
+
 
 
 def get_staff_list(request):
