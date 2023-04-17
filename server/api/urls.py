@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^posts/$', get_posts_list, name='get_posts_list_api'),
     url(r'^post_edit/$', views.post_edit, name='post_edit_api'),
     url(r'^post_get/$', views.get_post_info, name='post_get_api'),
+    url(r'^post_add/$', views.add_new_post, name='post_add_api'),
 ]

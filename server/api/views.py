@@ -68,11 +68,11 @@ def get_posts_list(request):
 
 
 def add_new_post(request):
-    post_name = request.POST.get('post_name')
-    cat_name = request.POST.get('cat_name')
-    sql_string = f'INSERT INTO main.main_posts (post, category)' \
-                 f'VALUES ({post_name}, {cat_name})'
-    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+    post_name = request.POST.get('post')
+    cat_name = request.POST.get('category')
+    sql_string = f"INSERT INTO main_posts (post, category) VALUES ('{post_name}', '{cat_name}')"
+    request_to_sql(sql_string)
+    return redirect('posts_list')
 
 
 def get_post_info(request):
