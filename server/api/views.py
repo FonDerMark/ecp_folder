@@ -55,11 +55,9 @@ def add_new_employeer(request):
 def edit_employeer(request):
     qd = {k: v[0] for k, v in dict(request.POST).items()}
     del qd['csrfmiddlewaretoken']
-    print(qd)
     me_id = int(qd.pop('id'))
     params = [k + '=' + '"' + v + '"' for k, v in qd.items()]
     sql_string = f"UPDATE main_employees SET {', '.join(params)} WHERE id={me_id}"
-    print(sql_string)
     request_to_sql(sql_string)
     return redirect('employeers_list')
 
@@ -87,6 +85,6 @@ def post_edit(request):
     post_id = request.POST.get('post_id')
     post = request.POST.get('post')
     category = request.POST.get('category')
-    sql_string = f"UPDATE main_employees SET {post}, {category} WHERE id={post_id}"
+    sql_string = f"UPDATE main_posts SET post='{post}', category='{category}' WHERE id={post_id}"
     request_to_sql(sql_string)
     return redirect('posts_list')

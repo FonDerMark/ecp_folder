@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^employeer_edit/$', edit_employeer, name='employeer_edit_api'),
     url(r'^employeer_add/$', add_new_employeer, name='employeer_add_api'),
     url(r'^posts/$', get_posts_list, name='get_posts_list_api'),
-    url(r'^post_edit/$', views.get_post_info, name='post_edit_api'),
+    url(r'^post_edit/$', views.post_edit, name='post_edit_api'),
+    url(r'^post_get/$', views.get_post_info, name='post_get_api'),
 ]
