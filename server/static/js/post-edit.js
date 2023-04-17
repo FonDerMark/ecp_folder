@@ -5,6 +5,7 @@ async function getPost() {
     let hidden_id = document.getElementById('post_id')
     let post = document.getElementById('post')
     let categorys = document.querySelectorAll('.category__opt')
+    let delete_post = document.getElementById('delete_post')
     try {
         let response = await fetch(url)
         let data = await response.json()
@@ -16,6 +17,7 @@ async function getPost() {
                 item.setAttribute('selected', 'true')
             }
         })
+        delete_post.setAttribute(`href`, `/api/post_delete/?id=${post_id}`)
     } catch (error) {
         console.log(error);
     }
