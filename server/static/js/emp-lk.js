@@ -13,6 +13,7 @@ let post_selector = document.getElementById('inputGroupSelect')
 let cat = document.getElementById('cat');
 let age = document.getElementById('age');
 let gender = document.getElementById('gender');
+let genders = document.querySelectorAll('.gender__opt')
 
 
 async function getEmployeer() {
@@ -27,8 +28,12 @@ async function getEmployeer() {
             } else {
                 post_selector.innerHTML += `<option value="${item.id}">${item.post}</option>`
             }
-        });
-        // id.setAttribute('value', data['id'])
+        })
+        genders.forEach(item => {
+            if (item.value === data['gender']) {
+                item.setAttribute('selected', 'true')
+            }
+        })
         id.setAttribute('value', employeer_id)
         lastname.setAttribute('value', data['lastname'])
         firstname.setAttribute('value', data['firstname'])
@@ -36,6 +41,7 @@ async function getEmployeer() {
         cat.setAttribute('value', data['category'])
         age.setAttribute('value', data['age'])
         gender.setAttribute('value', data['gender'])
+
     } catch (error){
         console.log(error)
     }

@@ -1,4 +1,4 @@
-{% extends 'old/base-page.html' %}
+{% extends 'base-page.html' %}
 {% load static %}
 {% block content %}
     <div>
@@ -28,8 +28,11 @@
                 <input type="text" class="form-control" id="age" name="age" aria-describedby="basic-addon3">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3">Пол</span>
-                <input type="text" class="form-control" id="gender" name="gender" aria-describedby="basic-addon3">
+                <label class="input-group-text" for="gender">Пол</label>
+                <select class="form-select" id="gender" name="gender">
+                    <option class="gender__opt" value="Мужчина">Мужчина</option>
+                    <option class="gender__opt" value="Женщина">Женщина</option>
+                </select>
             </div>
             <div class="d-flex justify-content-between">
                 <div>

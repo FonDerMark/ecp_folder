@@ -4,7 +4,8 @@
     <main class="main">
       <div class="main__container">
         <h1 class="main__title">Лучшее решение для управления персоналом</h1>
-        <button class="main__btn">начать</button>
+        <a href="{% url 'employeers_list' %}"><button class="main__btn">начать</button></a>
+
       </div>
         <img class="main__img" src="{% static 'img/table.svg' %}" alt="изображение доски">
     </main>
