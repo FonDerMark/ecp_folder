@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-CUSTOM_DB = env('CUSTOM_DB')
+CUSTOM_DB = int(env('CUSTOM_DB'))
 
 if STARTED_ON_DOCKER:
     DATABASES = {
