@@ -11,9 +11,15 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Customization, which allows the application to adapt to startup conditions
 STARTED_ON_DOCKER = os.environ.get('STARTED_ON_DOCKER', default=False)
@@ -22,10 +28,10 @@ STARTED_ON_DOCKER = os.environ.get('STARTED_ON_DOCKER', default=False)
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wdr$bfo25anow&gz(t75$xytx0nn8g+2_z9e=%p9-&z++%2$hg'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 if STARTED_ON_DOCKER:
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
@@ -84,6 +90,8 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+CUSTOM_DB = env('CUSTOM_DB')
+
 if STARTED_ON_DOCKER:
     DATABASES = {
         "default": {
@@ -91,17 +99,28 @@ if STARTED_ON_DOCKER:
             "NAME": "postgres",
             "USER": "postgres",
             "PASSWORD": "postgres",
-            "HOST": "db",  # set in docker-compose.yml
-            "PORT": 5432,  # default postgres port
+            "HOST": "db",
+            "PORT": 5432,
         }
     }
-else:
+elif not CUSTOM_DB:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+else:
+    DATABASES = {
+            "default": {
+                "ENGINE": env('DB_ENGINE'),
+                "NAME": env('DB_NAME'),
+                "USER": env('DB_USER'),
+                "PASSWORD": env('DB_PASSWORD'),
+                "HOST": env('DB_HOST'),
+                "PORT": env('DB_PORT'),
+            }
+        }
 
 
 # Password validation

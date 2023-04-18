@@ -16,6 +16,8 @@ services:
     image: postgres:11.1-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:8001
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
 

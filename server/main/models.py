@@ -9,7 +9,7 @@ class Employees(models.Model):
     lastname = models.CharField(max_length=30, verbose_name='Фамилия')
     firstname = models.CharField(max_length=30, verbose_name='Имя')
     surname = models.CharField(max_length=30, verbose_name='Отчество')
-    post = models.ForeignKey('Posts', on_delete=models.PROTECT, verbose_name='Должность')
+    post = models.ForeignKey('Posts', null=True, on_delete=models.SET_NULL, verbose_name='Должность')
     age = models.IntegerField()
     gender = models.CharField(max_length=10, choices=sexs, verbose_name='Пол')
 
