@@ -9,9 +9,8 @@ def request_to_sql(sql_string, data_return=True) -> list:
     получения ответа, с последующим оформлением результата двумя генераторами.
     Все последующие функции благодаря такому подходу, фактически
     являются простыми конструкторами строки запроса.
-    :param data_return:
-    :param sql_string:
-    :return:
+    Параметр data_return отвечает за правильную работу функции, при использовании в конструкциях,
+    где отсутствует возвращаемое значение, параметру необходимо выставить значение False.
     '''
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
@@ -39,7 +38,7 @@ def get_staff_list(request):
                  'mp.post, ' \
                  'mp.category ' \
                  'FROM main_employees me ' \
-                 'INNER JOIN main_posts mp on me.post_id = mp.id ' \
+                 'LEFT JOIN main_posts mp on me.post_id = mp.id ' \
                  'ORDER BY me.lastname, me.firstname'
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
@@ -80,7 +79,7 @@ def employeer_delete(request):
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_employees WHERE id={deleted_id}"
     print(sql_string)
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('employeers_list')
 
 
@@ -117,5 +116,5 @@ def post_delete(request):
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_posts WHERE id={deleted_id}"
     print(sql_string)
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('posts_list')
