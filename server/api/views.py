@@ -3,22 +3,26 @@ from django.db import connection
 from django.shortcuts import redirect
 
 
-def request_to_sql(sql_string) -> list:
+def request_to_sql(sql_string, data_return=True) -> list:
     '''
     Коннектор для передачи строки с запросом напрямую в БД, и
     получения ответа, с последующим оформлением результата двумя генераторами.
     Все последующие функции благодаря такому подходу, фактически
     являются простыми конструкторами строки запроса.
+    :param data_return:
     :param sql_string:
     :return:
     '''
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
-        try:
-            columns = [col[0] for col in cursor.description]
-            return [dict(zip(columns, row)) for row in cursor.fetchall()]
-        finally:
-            return []
+        if data_return:
+            try:
+                columns = [col[0] for col in cursor.description]
+            finally:
+                return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+
+
 
 
 
@@ -58,7 +62,7 @@ def add_new_employeer(request):
     gender = request.POST.get('gender')
     sql_string = f"INSERT INTO main_employees (lastname, firstname, surname, post_id, age, gender) " \
                  f"VALUES ('{lastname}', '{firstname}', '{surname}', '{post_id}', '{age}', '{gender}')"
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('employeers_list')
 
 
@@ -68,7 +72,7 @@ def edit_employeer(request):
     me_id = int(qd.pop('id'))
     params = [k + '=' + '"' + v + '"' for k, v in qd.items()]
     sql_string = f"UPDATE main_employees SET {', '.join(params)} WHERE id={me_id}"
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('employeers_list')
 
 
@@ -89,13 +93,13 @@ def add_new_post(request):
     post_name = request.POST.get('post')
     cat_name = request.POST.get('category')
     sql_string = f"INSERT INTO main_posts (post, category) VALUES ('{post_name}', '{cat_name}')"
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('posts_list')
 
 
 def get_post_info(request):
     post_id = request.GET.get('post_id')
-    sql_string = f'SELECT * FROM main.main_posts WHERE id={post_id}'
+    sql_string = f'SELECT * FROM main_posts WHERE id={post_id}'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
 
 
@@ -105,7 +109,7 @@ def post_edit(request):
     post = request.POST.get('post')
     category = request.POST.get('category')
     sql_string = f"UPDATE main_posts SET post='{post}', category='{category}' WHERE id={post_id}"
-    request_to_sql(sql_string)
+    request_to_sql(sql_string, data_return=False)
     return redirect('posts_list')
 
 

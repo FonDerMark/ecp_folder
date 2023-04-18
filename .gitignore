@@ -3,7 +3,7 @@
 
 # IntelliJ project files
 /.idea
-idea
+.idea
 *.iml
 out
 gen
@@ -114,7 +114,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.env.dev
 .venv
 env/
 venv/
