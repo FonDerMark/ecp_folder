@@ -1,8 +1,9 @@
+
 let table = document.getElementById('posts-table');
 let params = (new URL(document.location)).searchParams;
 let employeer_id = params.get("id");
-let url = `http://127.0.0.1:8000/api/employeer_get/?id=${employeer_id}`;
-let url_posts = `http://127.0.0.1:8000/api/posts/`;
+let url = `http://127.0.0.1:8000/api/employeer_get/?id=${employeer_id}`; // Адрес для запроса сотрудников
+let url_posts = `http://127.0.0.1:8000/api/posts/`; // Адрес для запроса должностей
 
 let id = document.getElementById('id')
 let lastname = document.getElementById('lastname');
@@ -16,7 +17,7 @@ let genders = document.querySelectorAll('.gender__opt')
 
 let delete_employeer = document.getElementById('delete_employeer')
 
-
+// Асинхронная функция для получения данных с сервера и их парсинга
 async function getEmployeer() {
     try{
         let response = await fetch(url);

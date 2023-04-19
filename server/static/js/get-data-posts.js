@@ -1,6 +1,7 @@
+// Асинхронная функция для получения данных с сервера и их парсинга
 async function getData() {
     let table = document.getElementById('main-table')
-    let url = 'http://127.0.0.1:8000/api/staff/'
+    let url = 'http://127.0.0.1:8000/api/staff/' // Адрес для запроса
     try{
         let response = await fetch(url);
         let data = await response.json();
