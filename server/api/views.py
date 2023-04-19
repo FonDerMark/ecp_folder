@@ -5,12 +5,14 @@ from django.shortcuts import redirect
 
 def request_to_sql(sql_string, data_return=True) -> list:
     '''
-    Коннектор для передачи строки с запросом напрямую в БД, и
-    получения ответа, с последующим оформлением результата двумя генераторами.
-    Все последующие функции благодаря такому подходу, фактически
-    являются простыми конструкторами строки запроса.
-    Параметр data_return отвечает за правильную работу функции, при использовании в конструкциях,
-    где отсутствует возвращаемое значение, параметру необходимо выставить значение False.
+    Функция принимает на вход строку запроса sql_string и параметр data_return,
+    отвечающий за необходимость возвращения результата выполнения запроса.
+    Функция выполняет запрос в БД и возвращает список словарей, содержащих результат запроса.
+    Ключами словаря являются названия столбцов, а значениями - данные из ячеек таблицы,
+    соответствующих этим столбцам.
+    :param sql_string: Строка SQL запроса
+    :param data_return: Необходимость возврата результата
+    :return: list of dicts
     '''
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
@@ -23,9 +25,16 @@ def request_to_sql(sql_string, data_return=True) -> list:
 
 
 
+# Все последующие функции являются простыми конструкторами строки SQL запроса
+
 
 
 def get_staff_list(request):
+    '''
+    Функция для получения списка сотрудников
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     sql_string = 'SELECT ' \
                  'me.id, ' \
                  'me.lastname, ' \
@@ -44,6 +53,11 @@ def get_staff_list(request):
 
 
 def get_employee_info(request):
+    '''
+    Функция для получения информации о сотруднике
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     if request.method == 'GET':
         employee_id = request.GET.get('id')
         sql_string = f'SELECT * FROM main_employees me ' \
@@ -53,6 +67,11 @@ def get_employee_info(request):
 
 
 def add_new_employeer(request):
+    '''
+    Функция для добавления нового сотрудника
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     lastname = request.POST.get('lastname')
     firstname = request.POST.get('firstname')
     surname = request.POST.get('surname')
@@ -66,6 +85,11 @@ def add_new_employeer(request):
 
 
 def edit_employeer(request):
+    '''
+    Функция для редактирования данных сотрудника
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     qd = {k: v[0] for k, v in dict(request.POST).items()}
     del qd['csrfmiddlewaretoken']
     me_id = int(qd.pop('id'))
@@ -76,19 +100,33 @@ def edit_employeer(request):
 
 
 def employeer_delete(request):
+    '''
+    Функция для удаления сотрудника
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_employees WHERE id={deleted_id}"
-    print(sql_string)
     request_to_sql(sql_string, data_return=False)
     return redirect('employeers_list')
 
 
 def get_posts_list(request):
+    '''
+    Функция для добавления нового сотрудника
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     sql_string = 'SELECT * FROM main_posts'
     return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
 def add_new_post(request):
+    '''
+    Функция для добавления новой должности
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     post_name = request.POST.get('post')
     cat_name = request.POST.get('category')
     sql_string = f"INSERT INTO main_posts (post, category) VALUES ('{post_name}', '{cat_name}')"
@@ -97,12 +135,22 @@ def add_new_post(request):
 
 
 def get_post_info(request):
+    '''
+    Функция для получения информации о должности
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     post_id = request.GET.get('post_id')
     sql_string = f'SELECT * FROM main_posts WHERE id={post_id}'
     return JsonResponse(request_to_sql(sql_string)[0], safe=False)
 
 
 def post_edit(request):
+    '''
+    Функция для редактирования должности
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     print(request.POST)
     post_id = request.POST.get('post_id')
     post = request.POST.get('post')
@@ -113,6 +161,11 @@ def post_edit(request):
 
 
 def post_delete(request):
+    '''
+    Функция для удаления должности
+    :param request: HttpRequest объект, который содержит информацию о запросе
+    :return: JSON
+    '''
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_posts WHERE id={deleted_id}"
     print(sql_string)
