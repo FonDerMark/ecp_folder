@@ -81,6 +81,11 @@ body {
     padding: 10px 60px;
 }
 
+.content-min {
+    margin: 0 auto;
+    padding: 10px 250px;
+}
+
 .main {
     display: flex;
     justify-content: space-evenly;
