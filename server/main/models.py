@@ -16,6 +16,11 @@ class Employees(models.Model):
     def __str__(self):
         return f'{self.lastname} {self.firstname} {self.surname}'
 
+    class Meta:
+        ordering = ['lastname', 'firstname', 'surname']
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+
 
 class Posts(models.Model):
     categories = [
@@ -28,3 +33,8 @@ class Posts(models.Model):
 
     def __str__(self):
         return self.post
+
+    class Meta:
+        ordering = ['post']
+        verbose_name = 'Должность'
+        verbose_name_plural = 'Должности'
