@@ -21,10 +21,7 @@ def request_to_sql(sql_string) -> list:
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 
-
-
 # Все последующие функции являются простыми конструкторами строки SQL запроса
-
 
 
 def get_staff_list(request):
@@ -47,7 +44,7 @@ def get_staff_list(request):
                  'FROM main_employees me ' \
                  'LEFT JOIN main_posts mp on me.post_id = mp.id ' \
                  'ORDER BY me.lastname, me.firstname'
-    return JsonResponse(request_to_sql(sql_string))
+    return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
 def get_employee_info(request):
@@ -61,7 +58,7 @@ def get_employee_info(request):
         sql_string = f'SELECT * FROM main_employees me ' \
                      f'LEFT JOIN main_posts mp on mp.id = me.post_id ' \
                      f'WHERE me.id={employee_id}'
-    return JsonResponse(request_to_sql(sql_string)[0])
+    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
 
 
 def add_new_employeer(request):
@@ -116,7 +113,7 @@ def get_posts_list(request):
     :return: JSON
     '''
     sql_string = 'SELECT * FROM main_posts'
-    return JsonResponse(request_to_sql(sql_string))
+    return JsonResponse(request_to_sql(sql_string), safe=False)
 
 
 def add_new_post(request):
