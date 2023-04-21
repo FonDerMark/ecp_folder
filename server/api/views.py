@@ -3,7 +3,7 @@ from django.db import connection
 from django.shortcuts import redirect
 
 
-def request_to_sql(sql_string, data_return=True) -> list:
+def request_to_sql(sql_string) -> list:
     '''
     Функция принимает на вход строку запроса sql_string и параметр data_return,
     отвечающий за необходимость возвращения результата выполнения запроса.
@@ -11,16 +11,14 @@ def request_to_sql(sql_string, data_return=True) -> list:
     Ключами словаря являются названия столбцов, а значениями - данные из ячеек таблицы,
     соответствующих этим столбцам.
     :param sql_string: Строка SQL запроса
-    :param data_return: Необходимость возврата результата
     :return: list of dicts
     '''
     with connection.cursor() as cursor:
         cursor.execute(sql_string)
-        if data_return:
-            try:
-                columns = [col[0] for col in cursor.description]
-            finally:
-                return [dict(zip(columns, row)) for row in cursor.fetchall()]
+        main_request = sql_string.split(' ')[0]
+        if main_request == 'SELECT':
+            columns = [col[0] for col in cursor.description]
+            return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 
 
@@ -49,7 +47,7 @@ def get_staff_list(request):
                  'FROM main_employees me ' \
                  'LEFT JOIN main_posts mp on me.post_id = mp.id ' \
                  'ORDER BY me.lastname, me.firstname'
-    return JsonResponse(request_to_sql(sql_string), safe=False)
+    return JsonResponse(request_to_sql(sql_string))
 
 
 def get_employee_info(request):
@@ -63,7 +61,7 @@ def get_employee_info(request):
         sql_string = f'SELECT * FROM main_employees me ' \
                      f'LEFT JOIN main_posts mp on mp.id = me.post_id ' \
                      f'WHERE me.id={employee_id}'
-    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+    return JsonResponse(request_to_sql(sql_string)[0])
 
 
 def add_new_employeer(request):
@@ -80,7 +78,7 @@ def add_new_employeer(request):
     gender = request.POST.get('gender')
     sql_string = f"INSERT INTO main_employees (lastname, firstname, surname, post_id, age, gender) " \
                  f"VALUES ('{lastname}', '{firstname}', '{surname}', '{post_id}', '{age}', '{gender}')"
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('employeers_list')
 
 
@@ -93,9 +91,9 @@ def edit_employeer(request):
     qd = {k: v[0] for k, v in dict(request.POST).items()}
     del qd['csrfmiddlewaretoken']
     me_id = int(qd.pop('id'))
-    params = [k + '=' + '"' + v + '"' for k, v in qd.items()]
+    params = [k + '=' + '\'' + v + '\'' for k, v in qd.items()]
     sql_string = f"UPDATE main_employees SET {', '.join(params)} WHERE id={me_id}"
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('employeers_list')
 
 
@@ -107,7 +105,7 @@ def employeer_delete(request):
     '''
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_employees WHERE id={deleted_id}"
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('employeers_list')
 
 
@@ -118,7 +116,7 @@ def get_posts_list(request):
     :return: JSON
     '''
     sql_string = 'SELECT * FROM main_posts'
-    return JsonResponse(request_to_sql(sql_string), safe=False)
+    return JsonResponse(request_to_sql(sql_string))
 
 
 def add_new_post(request):
@@ -130,7 +128,7 @@ def add_new_post(request):
     post_name = request.POST.get('post')
     cat_name = request.POST.get('category')
     sql_string = f"INSERT INTO main_posts (post, category) VALUES ('{post_name}', '{cat_name}')"
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('posts_list')
 
 
@@ -142,7 +140,7 @@ def get_post_info(request):
     '''
     post_id = request.GET.get('post_id')
     sql_string = f'SELECT * FROM main_posts WHERE id={post_id}'
-    return JsonResponse(request_to_sql(sql_string)[0], safe=False)
+    return JsonResponse(request_to_sql(sql_string)[0])
 
 
 def post_edit(request):
@@ -156,7 +154,7 @@ def post_edit(request):
     post = request.POST.get('post')
     category = request.POST.get('category')
     sql_string = f"UPDATE main_posts SET post='{post}', category='{category}' WHERE id={post_id}"
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('posts_list')
 
 
@@ -169,5 +167,5 @@ def post_delete(request):
     deleted_id = request.GET['id']
     sql_string = f"DELETE FROM main_posts WHERE id={deleted_id}"
     print(sql_string)
-    request_to_sql(sql_string, data_return=False)
+    request_to_sql(sql_string)
     return redirect('posts_list')

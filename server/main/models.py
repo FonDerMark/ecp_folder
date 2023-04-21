@@ -10,7 +10,7 @@ class Employees(models.Model):
     firstname = models.CharField(max_length=30, verbose_name='Имя')
     surname = models.CharField(max_length=30, verbose_name='Отчество')
     post = models.ForeignKey('Posts', null=True, on_delete=models.SET_NULL, verbose_name='Должность')
-    age = models.IntegerField()
+    age = models.IntegerField(verbose_name='Возраст')
     gender = models.CharField(max_length=10, choices=sexs, verbose_name='Пол')
 
     def __str__(self):
@@ -28,7 +28,7 @@ class Posts(models.Model):
         ('Рабочий', 'Рабочий'),
         ('Служащий', 'Служащий'),
     ]
-    post = models.CharField(max_length=30)
+    post = models.CharField(max_length=30, verbose_name='Должность')
     category = models.CharField(max_length=15, choices=categories, verbose_name='Категория')
 
     def __str__(self):
