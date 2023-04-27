@@ -21,6 +21,18 @@ def request_to_sql(sql_string) -> list:
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
 
+def transaction(list_of_requests):
+    try:
+        with connection.cursor as cursor:
+            cursor.execute('BEGIN')
+            [cursor.execute(i) for i in list_of_requests]
+            cursor.execute('COMMIT')
+            print(cursor.statusmessage)
+    except:
+        cursor.execute('ROLLBACK')
+        print(cursor.statusmessage)
+
+
 # Все последующие функции являются простыми конструкторами строки SQL запроса
 
 
