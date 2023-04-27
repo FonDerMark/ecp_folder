@@ -49,5 +49,9 @@ class Posts(models.Model):
         verbose_name_plural = 'Должности'
 
 
-class SalaryFund(models.Model):
-    total = models.DecimalField(verbose_name='Всего', decimal_places=2, max_digits=100)
+class Config(models.Model):
+    name = models.CharField(max_length=20)
+    value_int = models.IntegerField(null=True)
+    value_str = models.CharField(max_length=20, null=True)
+
+

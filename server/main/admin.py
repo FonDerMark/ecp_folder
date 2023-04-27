@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(Employees)
 admin.site.register(Posts)
 admin.site.register(AccountBalance)
-admin.site.register(SalaryFund)
+admin.site.register(Config)
