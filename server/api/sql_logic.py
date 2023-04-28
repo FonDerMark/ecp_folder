@@ -1,3 +1,5 @@
+import sqlite3
+
 from django.db import connection
 
 
@@ -23,9 +25,28 @@ def transaction(list_of_requests):
     try:
         with connection.cursor as cursor:
             cursor.execute('BEGIN')
-            [cursor.execute(i) for i in list_of_requests]
+            [cursor.execute(request) for request in list_of_requests]
             cursor.execute('COMMIT')
             print(cursor.statusmessage)
     except:
         cursor.execute('ROLLBACK')
         print(cursor.statusmessage)
+
+
+def database_preparation():
+    config = request_to_sql('SELECT * FROM main_config')
+    try:
+        salary_fund = "INSERT INTO main_config (name, value_int) VALUES ('salary_fund', 1000000000)"
+        request_to_sql(salary_fund)
+    except:
+        print('Salary fund exist')
+    try:
+        request_str = 'CREATE VIEW emp_balanse AS ' \
+                      'SELECT me.lastname, me.firstname me.surname mb.account_balance ' \
+                      'FROM main_employees me ' \
+                      'LEFT JOIN main_accountbalance mb ON me.id = mb.employee_id'
+        print(request_str)
+        with connection.cursor() as cursor:
+            cursor.execute(request_str)
+    except:
+        pass

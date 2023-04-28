@@ -2,8 +2,12 @@ from django.http import JsonResponse, HttpResponse
 from django.db import connection
 from django.shortcuts import redirect
 
-from .orm import request_to_sql, transaction
+from .sql_logic import request_to_sql, transaction, database_preparation
 
+
+def prepare(request):
+    database_preparation()
+    return redirect('employeers_list')
 
 # Все функции являются простыми конструкторами строки SQL запроса
 
